@@ -13,7 +13,6 @@ var ready = function() {
 
 
 
-
 		close: function(conversation_id) {
 			$('#chatbox_' + conversation_id).css('display', 'none');
 			chatBox.restructure();
@@ -58,8 +57,8 @@ var ready = function() {
 
 			createChatBox: function (conversation_id, minimizeChatBox) {
 				if ($("#chatbox_" + conversation_id).length > 0) {
-					if($("#chatbox_" + conversation_id).css('display')== 'none') {
-						$("#chatbox_" = conversation_id).css('display', 'block');
+					if($("#chatbox_" + conversation_id).css('display') == 'none') {
+						$("#chatbox_" + conversation_id).css('display', 'block');
 						chatBox.restructure();
 					}
 					$("#chatbox_" + conversation_id + " .chatboxtextarea").focus();
@@ -84,6 +83,9 @@ var ready = function() {
 				}
 
 				if (chatBoxeslength == 0) {
+					$("#chatbox_" + conversation_id).css('right', '20px');
+				} else {
+					width = (chatBoxeslength) * (280 + 7) + 20;
 					$("#chatbox_" + conversation_id).css('right', width + 'px');
 				}
 
@@ -120,7 +122,7 @@ var ready = function() {
 				});
 
 				$("#chatbox_" + conversation_id).click(function() {
-					if $(('#chatbox_' + conversation_id + ' .chatboxcontent').css('display') != 'none') {
+					if ($('#chatbox_' + conversation_id + ' .chatboxcontent').css('display') != 'none') {
 						$("#chatbox_" + conversation_id + " .chatboxtextarea").focus();
 					}
 				});
@@ -134,7 +136,7 @@ var ready = function() {
 				if (event.keyCode == 13 && event.shiftKey == 0) {
 					event.preventDefault();
 
-					message = chatboxarea.val();
+					message = chatboxtextarea.val();
 					message = message.replace(/^\s+|\s+$/g, "");
 
 					if (message != '') {
@@ -170,8 +172,14 @@ var ready = function() {
 
 					if ($.cookie('chatbox_minimized')) {
 						minimizedChatBoxes = $.cookie('chatbox_minimized').split(/\|/);
-						newCookie += conversation_id + '|';
 					}
+
+					var newCookie = '';
+
+					for (i = 0; i < minimizedChatBoxes.length; i++) {
+						if (minimizedChatBoxes[i] != conversation_id) {
+						newCookie += conversation_id + '|';
+						}
 				}
 
 				newCookie = newCookie.slice(0, -1)
