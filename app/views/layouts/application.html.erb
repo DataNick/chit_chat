@@ -13,15 +13,6 @@
 
 	<%= render 'layouts/nav' %>
 
-	<div class="container">
-	<% if notice %>
-
-	<p class="notice"><%= notice %></p>
-	<% end %>
-
-	<% if alert %>
-	<p class="alert"><%= alert %></p>
-	<% end %>
 
 	<p class = "navbar-text pull-right">
 	<% if user_signed_in? %>
@@ -33,12 +24,15 @@
 		<%= link_to "Log in", new_user_session_path, :class => 'navbar-link' %>
 	<% end %>
 	</p>
+	<div = class="container">
+	<% if alert %>
+		<div class="alert alert-danger" role="alert"><%= alert %></div>
+	<% end %>
+	<% if notice %>
+		<div class="alert alert-success" role="alert"><%= notice %></div>
+	<% end %>
 
-	<ul class = "nav">
-		<li class = "active">a href = '/messages'/a</li>
-	</ul>
-
-<%= yield %>
+	<%= yield %>
 	</div>
 
 
